@@ -1,47 +1,148 @@
-# Getting Started with Create React App
+```markdown
+# 🕹️ RETRO BATTLE CHAMPIONSHIP 2026 – React + TypeScript
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> Landing page interativa para um campeonato de e-sports com tema retrowave / pixel art, construída com React, TypeScript e Styled Components.
 
-## Available Scripts
+![Status](https://img.shields.io/badge/status-finalizado-brightgreen) ![Front-end](https://img.shields.io/badge/front--end-React%2FTypeScript%2FStyledComponents-blue)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 📋 Visão Geral
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Landing page completa do **Retro Battle Championship 2026**, com design retrô, animações neon e um formulário funcional de inscrição. Todo o layout e interações são componentizados com React, fortemente tipados com TypeScript e estilizados de forma encapsulada com Styled Components. O projeto inclui navegação entre a página principal e uma página de confirmação após o envio do formulário.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
 
-### `npm test`
+## 🧱 Estrutura do Projeto
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+src/
+├── components/
+│   ├── Countdown.tsx
+│   ├── Footer.tsx
+│   ├── GamesGrid.tsx
+│   ├── Hero.tsx
+│   ├── PixelDivider.tsx
+│   ├── Podium.tsx
+│   ├── RegistrationForm.tsx
+│   ├── StarParticle.tsx
+│   └── Toast.tsx
+├── pages/
+│   ├── ConfirmationPage.tsx
+│   └── HomePage.tsx
+├── styles/
+│   ├── globalStyles.ts
+│   └── theme.ts
+├── types/
+│   └── index.ts
+├── App.tsx
+└── index.tsx
+```
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🚀 Funcionalidades
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Hero section** com título neon e data do evento.
+- **Contagem regressiva** em tempo real até 15 de agosto de 2026.
+- **Grid de jogos** (CS2, Valorant, Overwatch 2, Mortal Kombat 1) com imagens e efeitos hover.
+- **Pódio de premiações** estilizado, com medalhas flutuantes.
+- **Formulário de inscrição controlado** com validação completa e feedback via toast.
+- **Página de confirmação** exibindo os dados fornecidos após o envio.
+- **Partículas animadas** ao confirmar inscrição.
+- **Design responsivo** (mobile, tablet, desktop).
+- **Estética retrô** com scanlines, cores neon e fontes pixel.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## ⚙️ Tecnologias e Conceitos Aplicados
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### React + TypeScript
+Todo o projeto é construído com componentes funcionais e tipagem estática.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| Conceito | Onde é aplicado |
+|----------|-----------------|
+| **Interfaces e tipos** | Definição de `Jogador`, `JogoId`, `ToastState` em `types/index.ts` e props de todos os componentes. |
+| **Union types** | Campo `jogo` do formulário (`'cs2' \| 'valorant' \| 'overwatch2' \| 'mk'`). |
+| **useState** | Estados do formulário, toast, partículas, contagem regressiva. |
+| **useEffect** | Intervalo da contagem regressiva (com cleanup) e criação única das partículas. |
+| **useRef** | Foco automático no campo inválido do formulário. |
+| **useCallback** | Memorização das funções `showToast` e `handleInscricaoConfirmada`. |
+| **useNavigate / useLocation** | Navegação para a página de confirmação passando dados via estado da rota. |
+| **Eventos React** | `onSubmit`, `onChange`, `onClick` com tipagem `React.FormEvent`, `React.ChangeEvent`, etc. |
+| **Formulário controlado** | Cada input tem `value` e `onChange` vinculados a um estado local. |
+| **Validação customizada** | Verificação de comprimento, formato de e‑mail, campo obrigatório antes do envio. |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Styled Components
+Toda a estilização é feita dentro dos componentes, usando `styled` e `createGlobalStyle`.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+| Conceito | Exemplo |
+|----------|---------|
+| **Estilos baseados em props** | `ToastContainer` muda de cor conforme `$isError`; `Card` dos jogos muda cor de borda no hover via `$accent`. |
+| **Tema global** | Cores, fontes e espaçamentos definidos em `theme.ts` e acessados via `${({ theme }) => ...}`. |
+| **Animações** | `keyframes` para pulsar, flutuar e piscar elementos. |
+| **Estilos globais** | Reset CSS e efeito de scanlines aplicados no body com `createGlobalStyle`. |
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 📄 Páginas e Navegação
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-# React-js-Front-End-NADIC
+| Rota | Componente | Descrição |
+|------|------------|-----------|
+| `/` | `HomePage` | Landing page completa com todas as seções. |
+| `/confirmacao` | `ConfirmationPage` | Exibe os dados da inscrição e mensagem de sucesso. |
+
+A navegação é feita com `react-router-dom` (BrowserRouter, Routes, Route). Após o `submit` bem‑sucedido do formulário, o usuário é redirecionado para `/confirmacao` com os dados no `state` da navegação.
+
+---
+
+## 🧪 Como Executar
+
+1. **Criar o projeto base:**
+   ```bash
+   npx create-react-app retro-battle --template typescript
+   cd retro-battle
+   ```
+
+2. **Instalar dependências adicionais:**
+   ```bash
+   npm install styled-components react-router-dom
+   npm install --save-dev @types/styled-components
+   ```
+
+3. **Substituir/criar os arquivos** conforme a estrutura acima (todos os códigos fornecidos no guia).
+
+4. **Iniciar o servidor de desenvolvimento:**
+   ```bash
+   npm start
+   ```
+
+5. Acesse `http://localhost:3000`.
+
+> 📡 **Observação**: As imagens dos jogos são carregadas de URLs externas. Caso alguma não seja exibida, basta substituir os links em `GamesGrid.tsx`.
+
+---
+
+## ❌ O que o projeto NÃO faz
+
+- Não envia dados para um backend (a inscrição é apenas simulada).
+- Não persiste dados em `localStorage` ou banco.
+- Não realiza autenticação real de usuário.
+- Não possui lógica de torneio (brackets, sorteios).
+
+Trata‑se de uma **demonstração front‑end completa**, aplicando boas práticas de componentização, tipagem e estilização moderna com React.
+
+---
+
+## 🎓 Conceitos de React, TypeScript e Styled Components Abordados
+
+- **Componentes** – Divisão em pequenas partes reutilizáveis (Hero, Countdown, Form, etc.)
+- **Propriedades (props)** – Tipagem com interfaces, incluindo props transient para styled-components (`$accent`, `$visivel`)
+- **Estado (state)** – `useState` em formulários, contador, toast, partículas
+- **Ciclo de vida** – `useEffect` com dependências e limpeza (clearInterval)
+- **Hooks** – `useRef` para foco, `useCallback` para performance, `useNavigate`/`useLocation` para roteamento
+- **Eventos** – `onSubmit`, `onChange`, `onClick` tipados
+- **Formulários** – Controlados, validação manual com feedback
+- **Styled Components** – Estilos dinâmicos, tema global, animações keyframes, estilos globais
+
+
